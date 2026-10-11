@@ -1,6 +1,32 @@
+:root {
+  color-scheme: light;
+  --page-bg: #fff;
+  --page-text: #222;
+  --muted: #666;
+  --control-border: #ccc;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #171717;
+  --page-text: #e5e5e5;
+  --muted: #aaa;
+  --control-border: #555;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    --page-bg: #171717;
+    --page-text: #e5e5e5;
+    --muted: #aaa;
+    --control-border: #555;
+  }
+}
+
 html {
-  background: #fff;
-  color: #222;
+  background: var(--page-bg);
+  color: var(--page-text);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
   line-height: 1.55;
@@ -31,6 +57,46 @@ li {
 
 a {
   color: inherit;
+}
+
+.theme-control {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.theme-control select {
+  padding: 3px 6px;
+  border: 1px solid var(--control-border);
+  border-radius: 3px;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--page-text);
+  outline-offset: 4px;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+h2 {
+  margin: 32px 0 16px;
+  font-size: 1rem;
+}
+
+.byline {
+  color: var(--muted);
+  font-size: 16px;
 }
 
 @media (max-width: 640px) {

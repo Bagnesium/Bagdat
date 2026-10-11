@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiodai - Bagdat Beimzhan</title>
+  <meta name="description" content="Kiodai: Bagdat Beimzhan's research on prospective memory in AI agents, evaluated on DeepSeek V3.1, including its negative result and limitations.">
+  <script src="/theme.js"></script>
+  <link rel="icon" href="/favicon.jpg">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <div class="theme-control">
+      <label for="theme">theme</label>
+      <select id="theme" data-theme-picker>
+        <option value="system">system</option>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+      </select>
+    </div>
+
+    <p><a href="/">back to home</a></p>
+    <h1>Kiodai: Structured Prospective Memory for Language-Model AI Agents and Its Evaluation Methodology</h1>
+    <p class="byline">Bagdat Beimzhan · independent research · 2026</p>
+
+    <p><a href="/papers/Kiodai.pdf">read the paper (PDF, 14 pages)</a></p>
+
+    <h2>what i tested</h2>
+    <p>I tested prospective memory: whether an AI agent can retain an earlier intention and execute it at the right time while respecting revisions, cancellations, and dependencies. After initial prompting pilots showed no improvement, I compared three systems on DeepSeek V3.1: a baseline without an external intention store (A0), a structured store with model-directed queries (B_ledger), and a structured store with programmatic monitoring (A2). The final comparison covered 12 synthetic trajectories from four template families, with one run per system and trajectory.</p>
+
+    <h2>the negative result</h2>
+    <p>The improvement hypothesis was not supported. Mean trajectory Set-F1 was 0.8643 for A0, 0.8111 for B_ledger, and 0.4806 for A2. The system with programmatic monitoring performed worse than both simpler alternatives, and the baseline had the lowest API-reported cost. This is a descriptive result from one model configuration and development-exposed scenarios, without repeated runs; it does not establish that structured memory is generally ineffective.</p>
+
+    <h2>what i learned</h2>
+    <p>A valid structured record does not guarantee that the agent preserved the right meaning or selected the right action. Saved logs showed superseded deadlines returning, incorrect action bindings, and selection failures even after the required evidence was available. Those records taught me to inspect the whole chain from intention formation to execution receipt, and to account for cancellations and blocked dependencies alongside the headline score. Semantic error propagation is a possible explanation, but this experiment did not isolate the cause of the performance gap.</p>
+
+    <p><a href="https://github.com/Bagnesium">github</a> | <a href="mailto:bagdat@akusa.dev">bagdat@akusa.dev</a></p>
+  </main>
+</body>
+</html>
