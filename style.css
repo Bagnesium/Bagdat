@@ -1,26 +1,15 @@
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --page-bg: #fff;
   --page-text: #222;
   --muted: #666;
-  --control-border: #ccc;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page-bg: #171717;
-  --page-text: #e5e5e5;
-  --muted: #aaa;
-  --control-border: #555;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) {
-    color-scheme: dark;
+  :root {
     --page-bg: #171717;
     --page-text: #e5e5e5;
     --muted: #aaa;
-    --control-border: #555;
   }
 }
 
@@ -57,25 +46,6 @@ li {
 
 a {
   color: inherit;
-}
-
-.theme-control {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 24px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.theme-control select {
-  padding: 3px 6px;
-  border: 1px solid var(--control-border);
-  border-radius: 3px;
-  background: var(--page-bg);
-  color: var(--page-text);
-  font: inherit;
 }
 
 :focus-visible {
