@@ -11,21 +11,42 @@
 <body>
   <main>
     <p><a href="/">back to home</a></p>
-    <h1>Kiodai: Structured Prospective Memory for Language-Model AI Agents and Its Evaluation Methodology</h1>
-    <p class="byline">Bagdat Beimzhan · independent research · 2026</p>
+    <h1>Kiodai</h1>
+    <p><strong>Can AI agents actually remember what they're supposed to do later?</strong></p>
+    <p class="byline">Bagdat Beimzhan · Independent research · 2026</p>
 
     <p><a href="/papers/Kiodai.pdf">read the paper (PDF, 11 pages)</a></p>
 
-    <h2>what i tested</h2>
-    <p>I tested prospective memory: whether an AI agent can retain an earlier intention and execute it at the right time while respecting revisions, cancellations, and dependencies. After initial prompting pilots showed no improvement, I compared three systems on DeepSeek V3.1: a baseline without an external intention store (A0), a structured store with model-directed queries (B_ledger), and a structured store with programmatic monitoring (A2). The final comparison covered 12 synthetic trajectories from four template families, with one run per system and trajectory.</p>
+    <h2>the idea</h2>
+    <p>I wanted to figure out what happens when you tell an AI agent to do something later, then change the deadline, cancel the task, or make it depend on something else happening first.</p>
 
-    <h2>the negative result</h2>
-    <p>The improvement hypothesis was not supported. Mean trajectory Set-F1 was 0.8643 for A0, 0.8111 for B_ledger, and 0.4806 for A2. The system with programmatic monitoring performed worse than both simpler alternatives, and the baseline had the lowest API-reported cost. This is a descriptive result from one model configuration and development-exposed scenarios, without repeated runs; it does not establish that structured memory is generally ineffective.</p>
+    <p>This is called <em>prospective memory</em>. Basically, remembering to do something in the future, not just remembering information from the past.</p>
 
-    <h2>what i learned</h2>
-    <p>A valid structured record does not guarantee that the agent preserved the right meaning or selected the right action. Saved logs showed superseded deadlines returning, incorrect action bindings, and selection failures even after the required evidence was available. Those records taught me to inspect the whole chain from intention formation to execution receipt, and to account for cancellations and blocked dependencies alongside the headline score. Semantic error propagation is a possible explanation, but this experiment did not isolate the cause of the performance gap.</p>
+    <p>My first prompting experiments didn't show any improvement, so I tested three different setups using DeepSeek V3.1: a regular agent without external intention storage (A0), one with a structured memory ledger it could query (B_ledger), and one with programmatic monitoring (A2).</p>
 
-    <p><a href="https://github.com/Bagnesium">github</a> | <a href="mailto:bagdat@akusa.dev">bagdat@akusa.dev</a></p>
+    <p>I compared them across 12 synthetic task sequences from four template families, running each setup once per sequence.</p>
+
+    <h2>what actually happened</h2>
+    <p>The simplest setup came out on top.</p>
+
+    <p>The baseline scored <strong>0.8643</strong> in mean trajectory Set-F1, compared with <strong>0.8111</strong> for the ledger system and <strong>0.4806</strong> for the monitored system. The baseline was also the cheapest in API-reported costs.</p>
+
+    <p>So, the more complicated memory systems actually performed worse.</p>
+
+    <p>That doesn't mean structured memory is a bad idea. This was a small experiment using one model configuration, with scenarios I'd already worked with during development. It just means my implementations didn't outperform the baseline under these conditions.</p>
+
+    <h2>what i took away</h2>
+    <p>The most interesting part was looking through the failures.</p>
+
+    <p>Old deadlines would resurface after being replaced. Actions sometimes got linked to the wrong instructions. In other cases, the agent had the information it needed but still picked the wrong action.</p>
+
+    <p>That made me realize something: <strong>storing an instruction and actually following through on it are two different problems.</strong></p>
+
+    <p>A memory system can store perfectly valid data and still get the meaning wrong somewhere along the way.</p>
+
+    <p>The experiment didn't isolate exactly why the more complex systems struggled. But it gave me a much clearer direction for investigating the problem: follow an intention from when it's first recorded, through every update or cancellation, all the way to the final action.</p>
+
+    <p><a href="https://github.com/Bagnesium/Kiodai">github repo</a> · <a href="mailto:bagdat@akusa.dev">email me</a></p>
   </main>
 </body>
 </html>
